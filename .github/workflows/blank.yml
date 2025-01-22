@@ -108,7 +108,7 @@ jobs:
         run: |
           mkdir -p kernel_platform/oneplus12_v
           cd kernel_platform/oneplus12_v
-          repo init -u repo init -u https://android.googlesource.com/kernel/manifest -b android-gs-raviole-5.10-android13 --depth=1
+          repo init -u https://android.googlesource.com/kernel/manifest -b android-gs-raviole-5.10-android13 --depth=1
           repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
       - name: Setup KernelSU
