@@ -106,8 +106,8 @@ jobs:
       - name: Setup Kernel Source
         working-directory: builds/${{ env.ROOT_DIR }}
         run: |
-          mkdir -p kernel_platform/oneplus12_v
-          cd kernel_platform/oneplus12_v
+          mkdir -p kernel_platform/oneplus12_v/kernel_platform
+          cd kernel_platform/oneplus12_v/kernel_platform
           repo init -u https://android.googlesource.com/kernel/manifest -b android-gs-raviole-5.10-android13 --depth=1
           repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
@@ -132,7 +132,7 @@ jobs:
           
           # Copy patches
           cp ../../../susfs4ksu/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch ./KernelSU-Next/
-          cp ../../../susfs4ksu/kernel_patches/50_add_susfs_in_gki-android14-6.1.patch ./common/
+          cp ../../../susfs4ksu/kernel_patches/50_add_susfs_in_gki-android13-5.10.patch ./common/
           cp ../../../kernel_patches/69_hide_stuff.patch ./common/
           cp ../../../kernel_patches/selinux.c_fix.patch ./
           cp ../../../kernel_patches/apk_sign.c_fix.patch ./
@@ -144,7 +144,7 @@ jobs:
           patch -p1 < 10_enable_susfs_for_ksu.patch || true
           
           cd ../common
-          patch -p1 < 50_add_susfs_in_gki-android14-6.1.patch || true
+          patch -p1 < 50_add_susfs_in_gki-android13-5.10.patch || true
           patch -p1 -F 3 < 69_hide_stuff.patch || true
           sed -i '/obj-$(CONFIG_KSU_SUSFS_SUS_SU) += sus_su.o/d' ./fs/Makefile
           
